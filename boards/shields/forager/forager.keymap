@@ -22,19 +22,14 @@
 
 / {
     behaviors {
-        // "Timeless" thumb hold-tap (shift/tab). Uses the same large
-        // tapping-term + balanced flavor as the homerow mods so it is
-        // insensitive to precise timing. Cross-hand positional hold-tap and
-        // require-prior-idle-ms are intentionally omitted: this is the
-        // dedicated capitalization shift, so it must work with both hands and
-        // must not resolve to a tap when pressed right after another key.
         ht: hold_tap {
             label = "hold_tap";
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
+            tapping-term-ms = <220>;
+            quick-tap-ms = <150>;
+            global-quick-tap;
             bindings = <&kp>, <&kp>;
         };
 
