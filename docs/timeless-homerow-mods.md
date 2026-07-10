@@ -4,8 +4,8 @@ This document describes the change that made the forager's homerow mods (`HRML`
 and `HRMR`) "timeless", mirroring the approach used in
 [urob's zmk-config](https://github.com/urob/zmk-config).
 
-The homerow mods (`HRML` / `HRMR`) and the `&ht LSHIFT TAB` thumb key were made
-timeless. Layers, combos, and the physical layout are untouched.
+Only the homerow mods were changed. Layers, combos, the `&ht LSHIFT TAB` thumb
+key, and the physical layout are all untouched.
 
 ## What "timeless" means
 
@@ -37,9 +37,8 @@ dedicated behaviors: `hml` (left hand) and `hmr` (right hand). The `HRML` /
 `HRMR` macros now point at these instead of `&ht`, so the per-layer bindings did
 not need to change.
 
-The `&ht` behavior — now used only by the `&ht LSHIFT TAB` thumb key — was given
-a timeless treatment adapted for a bilateral shift (see [Thumb key](#thumb-key)
-below).
+The `&ht` behavior itself is unchanged and still powers the `&ht LSHIFT TAB`
+thumb key.
 
 ### Behavior settings
 
@@ -75,32 +74,6 @@ Which gives the macros:
 - `hml` uses `hold-trigger-key-positions = <KEYS_R THUMBS>` — a left-hand HRM
   only produces a modifier when the next key is on the right hand or a thumb.
 - `hmr` uses `hold-trigger-key-positions = <KEYS_L THUMBS>` — the mirror image.
-
-## Thumb key
-
-The `&ht LSHIFT TAB` thumb key (`shift` on hold, `tab` on tap) is the dedicated
-capitalization shift. It gets the timeless *timing* — `balanced` flavor with a
-large `tapping-term-ms` of 280 and `quick-tap-ms` of 175 — but two of the HRM
-features are deliberately left off:
-
-- **No cross-hand `hold-trigger-key-positions`.** A shift must capitalize letters
-  on *both* hands, so restricting it to one side would break same-hand caps.
-- **No `require-prior-idle-ms` (and `global-quick-tap` was removed).** These
-  resolve the key as a *tap* when pressed shortly after another key. On a shift
-  that means a false `tab` when you capitalize immediately after typing — the
-  exact false-negative urob's README warns about for shift keys.
-
-This matches urob's own approach of using a dedicated shift that omits
-`require-prior-idle-ms`.
-
-| Property                     | Old (`ht`) | New (`ht`, thumb) |
-| ---------------------------- | ---------- | ----------------- |
-| `flavor`                     | `balanced` | `balanced`        |
-| `tapping-term-ms`            | 220        | **280**           |
-| `quick-tap-ms`               | 150        | **175**           |
-| `global-quick-tap`           | enabled    | **removed**       |
-| `require-prior-idle-ms`      | —          | — (intentional)   |
-| `hold-trigger-key-positions` | —          | — (intentional)   |
 
 ## Net effect
 
