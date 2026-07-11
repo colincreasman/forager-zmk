@@ -33,11 +33,11 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // "Timeless" homerow mods: a large tapping-term paired with
-        // require-prior-idle-ms eliminates the typing delay, while cross-hand
-        // positional hold-tap (hold-trigger-key-positions) resolved on release
-        // avoids false mods on same-hand rolls yet still lets same-hand mods
-        // be combined.
+        // Homerow mods - variant A (typing-first): keeps cross-hand positional
+        // hold-tap so same-hand rolls stay clean, and raises require-prior-idle-ms
+        // to 200 to stop stray mods/caps while typing fast. Same-hand shortcuts
+        // (e.g. cmd+c) need cmd held a beat before the letter, and mod-chains
+        // (cmd+c -> alt+tab) need cmd fully released first.
         hml: home_row_mod_left {
             label = "hrm_left";
             compatible = "zmk,behavior-hold-tap";
@@ -45,7 +45,7 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+            require-prior-idle-ms = <200>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
@@ -58,7 +58,7 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
+            require-prior-idle-ms = <200>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
