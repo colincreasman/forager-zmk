@@ -1,2 +1,9 @@
-firmware/
+.build
+.direnv
+.west
+modules
+firmware
+zmk
+draw/base.yaml
+draw/overview.yaml
 .DS_Store
