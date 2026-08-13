@@ -1,16 +1,4 @@
-# Forager ZMK Config (urob's config, QWERTY base)
-
-This repo pairs the Forager keyboard hardware definition (shield in `boards/`)
-with a near-verbatim copy of [urob's ZMK
-config](https://github.com/urob/zmk-config). The only layout change is the
-alphanumeric base: instead of urob's Colemak-DH, the base layer uses **QWERTY**.
-Every other feature (timeless homerow mods, combos, leader key, smart layers,
-magic-shift, nav cluster, mouse emulation, etc.) is identical to upstream. The
-keymap lives in `config/forager.keymap` (which includes `config/base.keymap`).
-
-The original Forager module readme follows.
-
----
+# Forager ZMK Module
 
 This is the ZMK module for [the Forager keyboard](https://github.com/carrefinho/forager).
 
