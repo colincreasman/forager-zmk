@@ -22,14 +22,25 @@
 
 / {
     behaviors {
+        // Thumb hold-tap (drives the &ht LSHIFT TAB thumb key).
+        //
+        // Deliberately has NO `global-quick-tap` / `require-prior-idle-ms`.
+        // Those make ZMK resolve the key to an *instant tap* whenever any other
+        // key was pressed within the preceding window (150ms), no matter how
+        // long or how hard the key is then held -- see is_quick_tap() in ZMK's
+        // behavior_hold_tap.c. Since Shift is nearly always pressed immediately
+        // after typing a letter, that reliably emitted TAB instead of SHIFT.
+        //
+        // Prior-idle gating is right for homerow mods (see hml/hmr below), but
+        // wrong for thumbs, which are never pressed accidentally while typing.
+        // Timings match urob's thumb hold-taps.
         ht: hold_tap {
             label = "hold_tap";
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <220>;
-            quick-tap-ms = <150>;
-            global-quick-tap;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
         };
 
