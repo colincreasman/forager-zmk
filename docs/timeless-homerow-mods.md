@@ -85,11 +85,6 @@ Fast same-hand rolls resolve as taps (no accidental modifiers), while genuine
 cross-hand chords still produce modifiers — with virtually no typing delay and
 no reliance on precise hold/tap timing.
 
-## Reference
-
-- urob's writeup on timeless homerow mods: <https://github.com/urob/zmk-config>
-- ZMK hold-tap docs: <https://zmk.dev/docs/keymaps/behaviors/hold-tap>
-
 ## Thumb keys must not use prior-idle gating
 
 ### Symptom
@@ -160,3 +155,84 @@ not behavior properties, so this fix takes effect as soon as the new firmware is
 flashed. If the thumb key has ever been remapped in Studio, however, the stored
 keymap in flash wins over the compiled one — flash `settings_reset` first in
 that case.
+
+## The other outer thumb: layer-taps must not be `tap-preferred`
+
+### Symptom
+
+The same class of failure on the **other** thumb: holding `&lt L1 SPACE` to
+reach layer 1 would intermittently emit a literal **SPACE** (plus whatever key
+was chorded with it) instead of activating the layer. Like the Shift/Tab bug it
+was timing-dependent and happened many times a minute.
+
+### Cause
+
+This one is *not* prior-idle gating — it is the flavor. ZMK's stock `&lt`
+(`app/dts/behaviors/layer_tap.dtsi`) is:
+
+```dts
+lt: layer_tap {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = "tap-preferred";
+    tapping-term-ms = <200>;
+    bindings = <&mo>, <&kp>;
+};
+```
+
+`tap-preferred` only ever resolves a hold from two events — the key's own
+release, or the tapping-term timer firing:
+
+```c
+static void decide_tap_preferred(struct active_hold_tap *hold_tap, enum decision_moment event) {
+    case HT_KEY_UP:      hold_tap->status = STATUS_TAP;         return;
+    case HT_TIMER_EVENT: hold_tap->status = STATUS_HOLD_TIMER;  return;
+    case HT_QUICK_TAP:   hold_tap->status = STATUS_TAP;         return;
+}
+```
+
+Note the absence of `HT_OTHER_KEY_UP`. Pressing *and releasing* another key
+while the layer-tap is held does **not** trigger the hold. So any layer chord
+completed faster than the 200 ms tapping term resolves as a tap, emitting
+`SPACE` followed by the other key. `balanced` handles exactly that case:
+
+```c
+case HT_OTHER_KEY_UP: hold_tap->status = STATUS_HOLD_INTERRUPT; return;
+```
+
+### Fix
+
+Override `&lt` globally, matching urob's config:
+
+```dts
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <175>;
+};
+```
+
+Now a layer chord resolves as a hold the moment the chorded key is released,
+with no dependence on beating a 200 ms timer.
+
+### Scope
+
+Both thumb defects are the same underlying mistake — a hold-tap configured so
+that it resolves to a *tap* without ever considering the hold — and they were
+applied across all the boards in this collection:
+
+| Repo | Left outer thumb | Right outer thumb | Homerow |
+| ---- | ---------------- | ----------------- | ------- |
+| `forager`    | `ht` — dropped `global-quick-tap` | `lt` — now `balanced` | already timeless |
+| `sweep`      | `ht` — dropped `global-quick-tap` | `lt` — now `balanced` | split out to `hml`/`hmr`, now timeless |
+| `totemist`   | `ht` — dropped `global-quick-tap` | `lt` — now `balanced` | split out to `hml`/`hmr`, now timeless |
+| `hillside52` | `ht` — already correct | `lt` — now `balanced` | already timeless |
+
+`sweep` and `totemist` were the worst offenders because a single `ht` behavior
+was shared by *both* the thumbs and every homerow mod, so the one bad
+`global-quick-tap` broke ten keys per board rather than one.
+
+## Reference
+
+- urob's writeup on timeless homerow mods: <https://github.com/urob/zmk-config>
+- ZMK hold-tap docs: <https://zmk.dev/docs/keymaps/behaviors/hold-tap>
+

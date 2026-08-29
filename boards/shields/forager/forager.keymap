@@ -19,6 +19,19 @@
 #define L1 1
 #define L2 2
 
+// Layer-tap, used by the right outer thumb `&lt L1 SPACE`.
+//
+// ZMK's stock `&lt` is `tap-preferred`, which only resolves a hold when the
+// tapping term expires -- pressing and releasing another key while it is held
+// does NOT trigger the hold. So a quick layer chord (hold the thumb, tap a
+// key, release) completed inside 200ms emits SPACE plus that key instead of
+// the layer keycode. `balanced` resolves the hold as soon as another key is
+// pressed and released, which is exactly what a layer chord looks like.
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <175>;
+};
 
 / {
     behaviors {
