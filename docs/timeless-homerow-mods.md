@@ -7,6 +7,10 @@ and `HRMR`) "timeless", mirroring the approach used in
 Only the homerow mods were changed. Layers, combos, the `&ht LSHIFT TAB` thumb
 key, and the physical layout are all untouched.
 
+> **Update:** the `&ht` thumb behavior *was* subsequently changed — see
+> [Thumb keys must not use prior-idle gating](#thumb-keys-must-not-use-prior-idle-gating)
+> at the end of this document.
+
 ## What "timeless" means
 
 Naive homerow mods (HRMs) depend on precise timing: hold longer than
@@ -37,8 +41,8 @@ dedicated behaviors: `hml` (left hand) and `hmr` (right hand). The `HRML` /
 `HRMR` macros now point at these instead of `&ht`, so the per-layer bindings did
 not need to change.
 
-The `&ht` behavior itself is unchanged and still powers the `&ht LSHIFT TAB`
-thumb key.
+The `&ht` behavior itself was left unchanged at the time and still powers the
+`&ht LSHIFT TAB` thumb key — this later turned out to be a bug, see below.
 
 ### Behavior settings
 
@@ -85,3 +89,74 @@ no reliance on precise hold/tap timing.
 
 - urob's writeup on timeless homerow mods: <https://github.com/urob/zmk-config>
 - ZMK hold-tap docs: <https://zmk.dev/docs/keymaps/behaviors/hold-tap>
+
+## Thumb keys must not use prior-idle gating
+
+### Symptom
+
+Holding the thumb `&ht LSHIFT TAB` key emitted **TAB instead of SHIFT** most of
+the time while typing, regardless of how long the key was held. Every other
+hold-tap on the board behaved correctly, and swapping the physical switch made
+no difference.
+
+### Cause
+
+The `&ht` behavior carried `global-quick-tap` together with
+`quick-tap-ms = <150>`. In ZMK, `global-quick-tap` is a deprecated alias that
+simply sets `require-prior-idle-ms` to the value of `quick-tap-ms`
+(`app/src/behaviors/behavior_hold_tap.c`, `KP_INST`):
+
+```c
+.require_prior_idle_ms = DT_INST_PROP(n, global_quick_tap)
+                             ? DT_INST_PROP(n, quick_tap_ms)
+                             : DT_INST_PROP(n, require_prior_idle_ms),
+```
+
+On key-down, `is_quick_tap()` then short-circuits the whole decision:
+
+```c
+static bool is_quick_tap(struct active_hold_tap *hold_tap) {
+    if ((last_tapped.timestamp + hold_tap->config->require_prior_idle_ms) > hold_tap->timestamp) {
+        return true;   // -> decide_hold_tap(hold_tap, HT_QUICK_TAP) -> TAP
+    }
+    ...
+}
+```
+
+`last_tapped` is refreshed by **every non-modifier keycode press anywhere on the
+keyboard**. So if any letter was pressed within the previous 150 ms, the thumb
+key resolved to a tap *immediately* on press — the hold branch was never even
+considered, which is why holding harder or longer could not help. Because Shift
+is almost always pressed right after typing a character, the failure rate was
+very high.
+
+Only this one key was affected because `&ht` had exactly one binding in the
+keymap. The homerow mods use `hml`/`hmr`, and `&lt L1 SPACE` uses ZMK's stock
+`&lt`, neither of which has global prior-idle gating on a thumb.
+
+### Fix
+
+Drop `global-quick-tap` from `ht`. Prior-idle gating exists to hide typing
+latency on *alpha* keys that double as mods; thumb keys are never pressed
+accidentally mid-word, so they should not use it. This matches urob's config,
+where `require-prior-idle-ms` appears only in the homerow-mod macro and never on
+the thumb hold-taps.
+
+| Property                | Before  | After   | Why |
+| ----------------------- | ------- | ------- | --- |
+| `global-quick-tap`      | enabled | **removed** | Was forcing an instant tap whenever a key was pressed in the previous 150ms |
+| `tapping-term-ms`       | 220     | 200     | Matches urob's thumb hold-taps |
+| `quick-tap-ms`          | 150     | 175     | Matches urob's `QUICK_TAP_MS`; still allows fast TAB-TAB repeats |
+| `flavor`                | balanced | balanced | Unchanged — resolves the hold as soon as another key is pressed and released |
+
+`quick-tap-ms` is retained: without `global-quick-tap` it only applies to the
+*same* key position, so tapping TAB and immediately pressing again still repeats
+TAB rather than turning into Shift.
+
+### Note on ZMK Studio
+
+This shield builds with `CONFIG_ZMK_STUDIO=y`. Studio can only remap *bindings*,
+not behavior properties, so this fix takes effect as soon as the new firmware is
+flashed. If the thumb key has ever been remapped in Studio, however, the stored
+keymap in flash wins over the compiled one — flash `settings_reset` first in
+that case.
