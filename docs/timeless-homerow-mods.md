@@ -8,8 +8,13 @@ Only the homerow mods were changed. Layers, combos, the `&ht LSHIFT TAB` thumb
 key, and the physical layout are all untouched.
 
 > **Update:** the `&ht` thumb behavior *was* subsequently changed — see
-> [Thumb keys must not use prior-idle gating](#thumb-keys-must-not-use-prior-idle-gating)
-> at the end of this document.
+> [Thumb keys must not use prior-idle gating](#thumb-keys-must-not-use-prior-idle-gating).
+>
+> **Update 2:** items 3 and 4 below (`hold-trigger-key-positions` and
+> `hold-trigger-on-release`) have since been **removed** from all boards
+> because they made same-hand shortcuts impossible — see
+> [Cross-hand gating was removed](#cross-hand-gating-was-removed) at the end of
+> this document. The rest of the setup (items 1 and 2) is unchanged.
 
 ## What "timeless" means
 
@@ -235,4 +240,68 @@ was shared by *both* the thumbs and every homerow mod, so the one bad
 
 - urob's writeup on timeless homerow mods: <https://github.com/urob/zmk-config>
 - ZMK hold-tap docs: <https://zmk.dev/docs/keymaps/behaviors/hold-tap>
+
+## Cross-hand gating was removed
+
+### Symptom
+
+On the totemist, left-hand homerow mods emitted their **tap** keycode instead of
+the modifier, no matter how long the key was held. `CMD+C` typed `fc`, `CMD+Q`
+typed `fq`, and capitalising a left-hand letter produced a two-letter roll. The
+right hand was affected too, but much less noticeably.
+
+### Cause
+
+Items 3 and 4 above — `hold-trigger-key-positions` and `hold-trigger-on-release`.
+
+The positional gate is **absolute**: there is no timeout escape hatch. If the
+next key pressed is on the same half, the hold-tap can *never* resolve as a
+hold, however long you hold it. On these layouts every common shortcut is
+same-hand:
+
+- `LGUI` is on `F`, so `CMD` + `Q W A S Z X C V` are all left-hand
+- `LSHIFT` is on `A`, so every capital of a left-hand letter is left-hand
+- `LCTRL` on `S` and `LALT` on `D` have the same problem
+
+urob's config gets away with this because it defines same-hand shortcuts as
+combos instead. These configs do not, so the gate simply removed the ability to
+use those shortcuts.
+
+### Fix
+
+Dropped both properties from `hml` / `hmr` on every board, and reduced the
+tapping term from 280ms back to 220ms. That last part matters: with the
+positional gate gone, the tapping term becomes the window in which a same-hand
+roll could still resolve as a hold (`balanced` resolves on the other key's
+release), so a shorter term narrows the exposure. `require-prior-idle-ms` is
+retained and is now the main guard against false mods while typing.
+
+Final homerow settings, identical on all four boards:
+
+| Property                     | Value      |
+| ---------------------------- | ---------- |
+| `flavor`                     | `balanced` |
+| `tapping-term-ms`            | 220        |
+| `quick-tap-ms`               | 150        |
+| `require-prior-idle-ms`      | 150        |
+| `hold-trigger-key-positions` | *(none)*   |
+| `hold-trigger-on-release`    | *(none)*   |
+
+### Trade-off
+
+A fast same-hand roll that *starts* on the homerow after more than 150ms of idle
+time (`as`, `sad`, `fad`) can now register a modifier. This is the failure mode
+the positional gate was there to prevent. If it turns out to be more annoying
+than losing same-hand shortcuts, the `KEYS_L` / `KEYS_R` / `THUMBS` defines are
+still present in every keymap, so re-adding the two properties is a two-line
+change — but pair it with combos for the same-hand shortcuts.
+
+### Scope
+
+| Repo | Homerow gating | Notes |
+| ---- | -------------- | ----- |
+| `totemist`   | removed | where the problem was reported |
+| `forager`    | removed | same layout, same latent problem |
+| `sweep`      | removed | same layout, same latent problem |
+| `hillside52` | removed | lower impact — it also has dedicated modifier keys |
 
