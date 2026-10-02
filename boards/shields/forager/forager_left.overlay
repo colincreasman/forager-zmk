@@ -16,3 +16,10 @@
    , <&gpio1 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
    ;
 };
+
+// The halves are XIAOs, whose UART is unused. This lives in the half overlays
+// rather than forager.dtsi because the dongle also includes forager.dtsi, and
+// it is a nice!nano with no xiao_serial node.
+&xiao_serial {
+    status = "disabled";
+};
