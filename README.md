@@ -2,6 +2,10 @@
 
 This is the ZMK module for [the Forager keyboard](https://github.com/carrefinho/forager).
 
+Two printable cases are in [case/](case/README.md): the stock Forager case (carrefinho's, as PandaKB
+ships it), and a sandwich top shell that screws onto the stock base. The sandwich top puts the keycaps
+in wells with the rim up to their tops, like ErgoMech's Totemist.
+
 [ZMK Studio](https://zmk.dev/docs/features/studio) is supported and enabled by default.
 
 Featuring the awesome [zmk-rgbled-widget by caksoylar](https://github.com/caksoylar/zmk-rgbled-widget).
