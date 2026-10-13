@@ -1,0 +1,6 @@
+Source:  https://github.com/carrefinho/forager
+Commit:  a6e6b5b4e09cf1c4d99fe2387fd1cc714d6ae394 (2025-11-21)
+Author:  carrefinho
+License: CERN-OHL-P-2.0 (see LICENSE in this folder)
+Files: case/LTop.stl, case/RTop.stl, case/LBase.stl, case/RBase.stl, case/legs.stl,
+       "case/Forager Case.step", copied unmodified.
