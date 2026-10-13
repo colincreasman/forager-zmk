@@ -1,0 +1,160 @@
+{
+ "rim_above_pcb": 9.05,
+ "mbk_top_above_pcb": 10.5,
+ "halves": {
+  "left": {
+   "top": {
+    "part": "top",
+    "pieces": 1,
+    "genus": 37,
+    "status": "NoError",
+    "volume_cm3": 18.99,
+    "size_mm": [
+     117.2,
+     98.9,
+     9.05
+    ],
+    "clash_mm3": {
+     "stock base": 0.0,
+     "PCB": 0.0,
+     "switches": -0.0,
+     "keycaps, full travel": 0.0
+    },
+    "gap_mm": {
+     "stock base": 0.0,
+     "PCB": 0.0,
+     "switches": 0.0,
+     "keycaps, full travel": 1.0
+    },
+    "ok": true,
+    "plate_vs_stock_mm3": 0.0,
+    "thin_slivers_removed_mm3": 15.074,
+    "outline_vs_stock_top_mm": 0.0,
+    "cutouts_vs_pcb_mm": 0.0,
+    "screws_vs_nuts_mm": 0.0,
+    "closed_pockets": [],
+    "stl_ok": true
+   },
+   "shell": {
+    "widest_roof_span_mm": 8.2,
+    "rim_area_mm2": 2359.0,
+    "shelf_area_mm2": 115.7,
+    "hollow_area_mm2": 789.6,
+    "keycaps_past_outline_mm2": 0.0,
+    "rim_z": 10.65,
+    "plate_top_z": 3.8,
+    "shelf_z": 3.8,
+    "rim_above_pcb": 9.05,
+    "cap_top_above_rim_mbk": 1.45,
+    "trimmed_mm3": 67.83
+   },
+   "screws": [
+    {
+     "c": [
+      -93.24999986221053,
+      45.750000000000014
+     ],
+     "bore": 4.75
+    },
+    {
+     "c": [
+      -21.92302308623747,
+      45.750000000000014
+     ],
+     "bore": 4.75
+    },
+    {
+     "c": [
+      -93.24999971958371,
+      -12.750000000000002
+     ],
+     "bore": 4.75
+    },
+    {
+     "c": [
+      -21.9230229436109,
+      -12.749999999999995
+     ],
+     "bore": 4.75
+    }
+   ]
+  },
+  "right": {
+   "top": {
+    "part": "top",
+    "pieces": 1,
+    "genus": 39,
+    "status": "NoError",
+    "volume_cm3": 18.99,
+    "size_mm": [
+     117.2,
+     98.9,
+     9.05
+    ],
+    "clash_mm3": {
+     "stock base": 0.0,
+     "PCB": 0.0,
+     "switches": 0.0,
+     "keycaps, full travel": 0.0
+    },
+    "gap_mm": {
+     "stock base": 0.0,
+     "PCB": 0.0,
+     "switches": 0.0,
+     "keycaps, full travel": 1.0
+    },
+    "ok": true,
+    "plate_vs_stock_mm3": 0.0,
+    "thin_slivers_removed_mm3": 15.31,
+    "outline_vs_stock_top_mm": 0.0,
+    "cutouts_vs_pcb_mm": 0.0,
+    "screws_vs_nuts_mm": 0.0,
+    "closed_pockets": [],
+    "stl_ok": true
+   },
+   "shell": {
+    "widest_roof_span_mm": 8.2,
+    "rim_area_mm2": 2359.0,
+    "shelf_area_mm2": 115.7,
+    "hollow_area_mm2": 789.6,
+    "keycaps_past_outline_mm2": 0.0,
+    "rim_z": 10.65,
+    "plate_top_z": 3.8,
+    "shelf_z": 3.8,
+    "rim_above_pcb": 9.05,
+    "cap_top_above_rim_mbk": 1.45,
+    "trimmed_mm3": 66.98
+   },
+   "screws": [
+    {
+     "c": [
+      21.923023086237478,
+      45.75000000000002
+     ],
+     "bore": 4.75
+    },
+    {
+     "c": [
+      93.24999986221053,
+      45.75000000000001
+     ],
+     "bore": 4.75
+    },
+    {
+     "c": [
+      21.923022943610896,
+      -12.74999999999999
+     ],
+     "bore": 4.75
+    },
+    {
+     "c": [
+      93.24999971958376,
+      -12.750000000000002
+     ],
+     "bore": 4.75
+    }
+   ]
+  }
+ }
+}
