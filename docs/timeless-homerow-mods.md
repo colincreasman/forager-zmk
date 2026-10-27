@@ -305,3 +305,26 @@ change — but pair it with combos for the same-hand shortcuts.
 | `sweep`      | removed | same layout, same latent problem |
 | `hillside52` | removed | lower impact — it also has dedicated modifier keys |
 
+## Rebalancing toward HOLD (forager)
+
+### Symptom
+
+After a couple of weeks on the settings above, intended holds on the homerow
+mods and both outer thumbs (`&ht LSHIFT TAB`, `&lt L1 SPACE`) frequently came
+out as taps, while false holds almost never happened. The thresholds were
+skewed toward TAP.
+
+### Fix
+
+Each tap-biasing window was trimmed moderately; flavor stays `balanced`.
+
+| Behavior     | Property                | Before | After | Effect |
+| ------------ | ----------------------- | ------ | ----- | ------ |
+| `hml`/`hmr`  | `tapping-term-ms`       | 220    | 190   | Hold resolves sooner by time |
+| `hml`/`hmr`  | `require-prior-idle-ms` | 150    | 100   | Fewer forced instant taps when a mod follows typing |
+| `hml`/`hmr`  | `quick-tap-ms`          | 150    | 120   | Re-pressing a just-tapped key can hold sooner |
+| `ht` / `lt`  | `tapping-term-ms`       | 200    | 175   | Shift/L1 resolve sooner by time |
+| `ht` / `lt`  | `quick-tap-ms`          | 175    | 125   | e.g. holding SPACE for L1 right after typing a space |
+
+If false mods mid-word start appearing, raise `require-prior-idle-ms` first.
+
