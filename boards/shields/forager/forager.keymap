@@ -266,63 +266,63 @@
         // Letter combos need both keys within 23ms (ZMK's default is 50ms), so
         // quick rolls while typing, like O then P, stay as plain letters.
         combo_esc_op {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <8 9>;  // Combo o+p for ESCAPE
             bindings = <&kp ESC>;
         };
         combo_esc_qw {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <0 1>;  // Combo q+w for ESCAPE
             bindings = <&kp ESC>;
         };
         // Symbol combos work on every layer and ignore held Shift.
         combo_left_paren {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <22 23>;  // C+V
             bindings = <&lpar_fixed>;
         };
         combo_right_paren {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <26 27>;  // M+COMMA
             bindings = <&rpar_fixed>;
         };
         combo_left_bracket {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <12 13>;  // D+F
             bindings = <&lbkt_fixed>;
         };
         combo_right_bracket {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <16 17>;  // J+K
             bindings = <&rbkt_fixed>;
         };
         combo_left_brace {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <2 3>;  // E+R
             bindings = <&lbrc_fixed>;
         };
         combo_right_brace {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <6 7>;  // U+I
             bindings = <&rbrc_fixed>;
         };
         combo_minus {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <20 21>;  // Z+X
             bindings = <&minus_fixed>;
         };
         combo_equal {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <28 29>;  // .+/
             bindings = <&equal_fixed>;
         };
         combo_underscore {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <10 11>;  // A+S
             bindings = <&under_fixed>;
         };
         combo_plus {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <18 19>;  // L+backslash
             bindings = <&plus_fixed>;
         };

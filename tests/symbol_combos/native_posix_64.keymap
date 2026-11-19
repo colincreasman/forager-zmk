@@ -68,52 +68,52 @@
     combos {
         compatible = "zmk,combos";
         combo_left_paren {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <27 28>;
             bindings = <&lpar_fixed>;
         };
         combo_right_paren {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <31 32>;
             bindings = <&rpar_fixed>;
         };
         combo_left_bracket {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <15 16>;
             bindings = <&lbkt_fixed>;
         };
         combo_right_bracket {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <19 20>;
             bindings = <&rbkt_fixed>;
         };
         combo_left_brace {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <3 4>;
             bindings = <&lbrc_fixed>;
         };
         combo_right_brace {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <7 8>;
             bindings = <&rbrc_fixed>;
         };
         combo_minus {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <25 26>;
             bindings = <&minus_fixed>;
         };
         combo_equal {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <33 34>;
             bindings = <&equal_fixed>;
         };
         combo_underscore {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <13 14>;
             bindings = <&under_fixed>;
         };
         combo_plus {
-            timeout-ms = <23>;
+            timeout-ms = <21>;
             key-positions = <21 22>;
             bindings = <&plus_fixed>;
         };
@@ -180,8 +180,8 @@
         ZMK_MOCK_RELEASE(3,5,10) ZMK_MOCK_RELEASE(3,4,10) ZMK_MOCK_RELEASE(5,6,300)
         ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(4,5,10) ZMK_MOCK_PRESS(4,6,10)
         ZMK_MOCK_RELEASE(4,6,10) ZMK_MOCK_RELEASE(4,5,10) ZMK_MOCK_RELEASE(5,6,300)
-        // A 24ms R/E roll must type letters, not a brace.
-        ZMK_MOCK_PRESS(0,4,24) ZMK_MOCK_PRESS(0,3,10)
-        ZMK_MOCK_RELEASE(0,4,10) ZMK_MOCK_RELEASE(0,3,300)
+        // A 22ms E-then-R roll, as in typing "over", must stay letters.
+        ZMK_MOCK_PRESS(0,3,22) ZMK_MOCK_PRESS(0,4,10)
+        ZMK_MOCK_RELEASE(0,3,10) ZMK_MOCK_RELEASE(0,4,300)
     >;
 };
