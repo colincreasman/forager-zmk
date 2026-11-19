@@ -1,0 +1,118 @@
+#include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/kscan_mock.h>
+
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <175>;
+    quick-tap-ms = <125>;
+};
+
+/ {
+    behaviors {
+        shift_tab: shift_tab {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <175>;
+            quick-tap-ms = <125>;
+            bindings = <&kp>, <&kp>;
+        };
+        caps_sys: caps_sys {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&caps_word>;
+        };
+        hml: home_row_mod_left {
+            label = "hrm_left";
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <190>;
+            quick-tap-ms = <120>;
+            require-prior-idle-ms = <100>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+    combos {
+        compatible = "zmk,combos";
+        combo_caps_word_maintenance {
+            timeout-ms = <21>;
+            key-positions = <6 7>;
+            bindings = <&caps_sys 2 0>;
+            layers = <0 1>;
+        };
+    };
+    keymap {
+        compatible = "zmk,keymap";
+        default_layer {
+            bindings = <
+                &hml LSHFT A      &hml RSHFT BSLH         &shift_tab LSHFT TAB
+                &kp B             &kp SPACE               &kp S
+                &lt 1 RET         &kp BSPC                &none
+            >;
+        };
+        layer_one {
+            bindings = <
+                &trans &trans &trans
+                &trans &trans &trans
+                &trans &trans &trans
+            >;
+        };
+        maintenance_layer {
+            bindings = <
+                &trans &trans &trans
+                &kp X  &trans &trans
+                &trans &trans &trans
+            >;
+        };
+    };
+};
+
+&kscan {
+    rows = <3>;
+    columns = <3>;
+    events = <
+        // Three rapid Tab taps stay three Tabs.
+        ZMK_MOCK_PRESS(0,2,30) ZMK_MOCK_RELEASE(0,2,30)
+        ZMK_MOCK_PRESS(0,2,30) ZMK_MOCK_RELEASE(0,2,30)
+        ZMK_MOCK_PRESS(0,2,30) ZMK_MOCK_RELEASE(0,2,300)
+
+        // A and backslash type immediately; a double tap is just two letters.
+        ZMK_MOCK_PRESS(0,0,30) ZMK_MOCK_RELEASE(0,0,30)
+        ZMK_MOCK_PRESS(0,0,30) ZMK_MOCK_RELEASE(0,0,300)
+        ZMK_MOCK_PRESS(0,1,30) ZMK_MOCK_RELEASE(0,1,300)
+
+        // Fast typing: B, then Shift thumb + A, letting go of Shift first.
+        ZMK_MOCK_PRESS(1,0,20) ZMK_MOCK_RELEASE(1,0,20)
+        ZMK_MOCK_PRESS(0,2,30) ZMK_MOCK_PRESS(0,0,30)
+        ZMK_MOCK_RELEASE(0,2,20) ZMK_MOCK_RELEASE(0,0,400)
+        // Fast typing: B, then Shift thumb + A, letting go of A first.
+        ZMK_MOCK_PRESS(1,0,20) ZMK_MOCK_RELEASE(1,0,20)
+        ZMK_MOCK_PRESS(0,2,30) ZMK_MOCK_PRESS(0,0,30)
+        ZMK_MOCK_RELEASE(0,0,40) ZMK_MOCK_RELEASE(0,2,400)
+
+        // Tapping Enter and Backspace together starts Caps Word.
+        ZMK_MOCK_PRESS(2,0,10) ZMK_MOCK_PRESS(2,1,30)
+        ZMK_MOCK_RELEASE(2,0,10) ZMK_MOCK_RELEASE(2,1,300)
+        ZMK_MOCK_PRESS(1,0,20) ZMK_MOCK_RELEASE(1,0,20)
+        ZMK_MOCK_PRESS(1,2,20) ZMK_MOCK_RELEASE(1,2,20)
+        ZMK_MOCK_PRESS(1,1,20) ZMK_MOCK_RELEASE(1,1,20)
+        ZMK_MOCK_PRESS(1,0,20) ZMK_MOCK_RELEASE(1,0,300)
+
+        // Holding Enter and Backspace together opens maintenance (B becomes X).
+        ZMK_MOCK_PRESS(2,0,10) ZMK_MOCK_PRESS(2,1,300)
+        ZMK_MOCK_PRESS(1,0,20) ZMK_MOCK_RELEASE(1,0,20)
+        ZMK_MOCK_RELEASE(2,0,10) ZMK_MOCK_RELEASE(2,1,300)
+
+        // On their own, Enter and Backspace keep their normal taps.
+        ZMK_MOCK_PRESS(2,0,40) ZMK_MOCK_RELEASE(2,0,300)
+        ZMK_MOCK_PRESS(2,1,40) ZMK_MOCK_RELEASE(2,1,300)
+
+        // Held A still gives Shift.
+        ZMK_MOCK_PRESS(0,0,250) ZMK_MOCK_PRESS(1,0,20)
+        ZMK_MOCK_RELEASE(1,0,20) ZMK_MOCK_RELEASE(0,0,300)
+    >;
+};

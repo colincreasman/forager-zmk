@@ -75,7 +75,8 @@ computer without the dongle, and switching modes means reflashing. Both sets of 
 on both halves. To go back, reset the halves and flash the standalone left firmware.
 
 - Keymap changes then only need the **dongle** reflashed. To reach its bootloader without opening its case, hold
-  both far outer thumbs (maintenance layer) and hold `T` for 2 seconds. `Q`/`P` still bootloader each half.
+  both outer thumbs (Enter+Backspace; a tap starts Caps Word, a hold opens the maintenance layer) and hold `T`
+  for 2 seconds. `Q`/`P` still bootloader each half.
 - The dongle keeps all five Bluetooth profiles (its connection limits are raised to fit both halves too), so it
   can also pair to computers wirelessly on its own battery. ZMK Studio is enabled on the dongle.
 - Layers are named so the dongle's OLED can show them. The dongle never deep-sleeps: deep sleep is only woken by

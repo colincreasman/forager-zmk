@@ -38,7 +38,7 @@ for keymap in (repo / "boards/shields/forager/forager.keymap",):
         sys.exit(f"D home-row mod in {keymap} differs from the native test")
     if "&hmd LALT D" not in source:
         sys.exit(f"D home-row mod binding is missing from {keymap}")
-    if "&lt L1 RET &ht LSHFT TAB &lt L1 SPACE  &kp BSPC" not in source:
+    if "&lt L1 RET &shift_tab LSHFT TAB &lt L1 SPACE  &kp BSPC" not in source:
         sys.exit(f"Enter/L1 or Backspace thumb binding is missing from {keymap}")
 zmk = os.environ.get("ZMK_SRC_DIR")
 if not zmk:
