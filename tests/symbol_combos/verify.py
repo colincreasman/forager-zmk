@@ -40,6 +40,12 @@ behaviors = (
     "equal_fixed",
     "under_fixed",
     "plus_fixed",
+    "grave_fixed",
+    "tilde_fixed",
+    "dqt_fixed",
+    "sqt_fixed",
+    "colon_fixed",
+    "semi_fixed",
 )
 combos = {
     "combo_left_paren": ("22 23", "lpar_fixed", None),
@@ -48,10 +54,16 @@ combos = {
     "combo_right_bracket": ("16 17", "rbkt_fixed", None),
     "combo_left_brace": ("2 3", "lbrc_fixed", None),
     "combo_right_brace": ("6 7", "rbrc_fixed", None),
-    "combo_minus": ("20 21", "minus_fixed", None),
-    "combo_equal": ("28 29", "equal_fixed", None),
-    "combo_underscore": ("10 11", "under_fixed", None),
-    "combo_plus": ("18 19", "plus_fixed", None),
+    "combo_minus": ("21 22", "minus_fixed", None),
+    "combo_equal": ("27 28", "equal_fixed", None),
+    "combo_underscore": ("1 2", "under_fixed", None),
+    "combo_plus": ("7 8", "plus_fixed", None),
+    "combo_grave": ("10 11", "grave_fixed", None),
+    "combo_tilde": ("18 19", "tilde_fixed", None),
+    "combo_double_quote": ("20 21", "dqt_fixed", None),
+    "combo_single_quote": ("28 29", "sqt_fixed", None),
+    "combo_colon": ("11 12", "colon_fixed", None),
+    "combo_semicolon": ("17 18", "semi_fixed", None),
 }
 
 for keymap in (repo / "boards/shields/forager/forager.keymap",):

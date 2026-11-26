@@ -64,6 +64,42 @@
             bindings = <&kp PLUS>, <&kp PLUS>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+        grave_fixed: grave_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE>, <&kp GRAVE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        tilde_fixed: tilde_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp TILDE>, <&kp TILDE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        dqt_fixed: dqt_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DQT>, <&kp DQT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        sqt_fixed: sqt_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp SQT>, <&kp SQT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        colon_fixed: colon_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COLON>, <&kp COLON>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        semi_fixed: semi_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp SEMI>, <&kp SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
     combos {
         compatible = "zmk,combos";
@@ -99,23 +135,53 @@
         };
         combo_minus {
             timeout-ms = <21>;
-            key-positions = <25 26>;
+            key-positions = <26 27>;
             bindings = <&minus_fixed>;
         };
         combo_equal {
             timeout-ms = <21>;
-            key-positions = <33 34>;
+            key-positions = <32 33>;
             bindings = <&equal_fixed>;
         };
         combo_underscore {
             timeout-ms = <21>;
-            key-positions = <13 14>;
+            key-positions = <2 3>;
             bindings = <&under_fixed>;
         };
         combo_plus {
             timeout-ms = <21>;
-            key-positions = <21 22>;
+            key-positions = <8 9>;
             bindings = <&plus_fixed>;
+        };
+        combo_grave {
+            timeout-ms = <21>;
+            key-positions = <13 14>;
+            bindings = <&grave_fixed>;
+        };
+        combo_tilde {
+            timeout-ms = <21>;
+            key-positions = <21 22>;
+            bindings = <&tilde_fixed>;
+        };
+        combo_double_quote {
+            timeout-ms = <21>;
+            key-positions = <25 26>;
+            bindings = <&dqt_fixed>;
+        };
+        combo_single_quote {
+            timeout-ms = <21>;
+            key-positions = <33 34>;
+            bindings = <&sqt_fixed>;
+        };
+        combo_colon {
+            timeout-ms = <21>;
+            key-positions = <14 15>;
+            bindings = <&colon_fixed>;
+        };
+        combo_semicolon {
+            timeout-ms = <21>;
+            key-positions = <20 21>;
+            bindings = <&semi_fixed>;
         };
     };
     keymap {
@@ -150,38 +216,82 @@
         ZMK_MOCK_PRESS(5,5,10) ZMK_MOCK_PRESS(1,5,10)
         ZMK_MOCK_RELEASE(1,5,10) ZMK_MOCK_RELEASE(5,5,10)
 
-        // All symbol combos stay invariant with Shift held.
+        // Every symbol combo gives the same symbol with Shift held.
         ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(3,6,10) ZMK_MOCK_PRESS(4,0,10)
         ZMK_MOCK_RELEASE(4,0,10) ZMK_MOCK_RELEASE(3,6,10) ZMK_MOCK_RELEASE(5,6,300)
-        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(4,4,10) ZMK_MOCK_PRESS(4,3,10)
-        ZMK_MOCK_RELEASE(4,3,10) ZMK_MOCK_RELEASE(4,4,10) ZMK_MOCK_RELEASE(5,6,300)
-
-        ZMK_MOCK_PRESS(5,5,20) ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(2,1,10)
-        ZMK_MOCK_PRESS(2,2,10) ZMK_MOCK_RELEASE(2,2,10)
-        ZMK_MOCK_RELEASE(2,1,10)
-        ZMK_MOCK_PRESS(2,5,10)
-        ZMK_MOCK_PRESS(2,6,10) ZMK_MOCK_RELEASE(2,6,10)
-        ZMK_MOCK_RELEASE(2,5,10)
-
-        ZMK_MOCK_RELEASE(5,6,10) ZMK_MOCK_RELEASE(5,5,10)
-        ZMK_MOCK_PRESS(5,5,20) ZMK_MOCK_PRESS(5,6,20)
-        ZMK_MOCK_PRESS(0,3,10)
-        ZMK_MOCK_PRESS(0,4,10) ZMK_MOCK_RELEASE(0,4,10)
-        ZMK_MOCK_RELEASE(0,3,10)
-        ZMK_MOCK_PRESS(1,0,10)
-        ZMK_MOCK_PRESS(1,1,10) ZMK_MOCK_RELEASE(1,1,10)
-        ZMK_MOCK_RELEASE(1,0,10) ZMK_MOCK_RELEASE(5,6,10) ZMK_MOCK_RELEASE(5,5,300)
-
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(4,3,10) ZMK_MOCK_PRESS(4,4,10)
+        ZMK_MOCK_RELEASE(4,4,10) ZMK_MOCK_RELEASE(4,3,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(2,1,10) ZMK_MOCK_PRESS(2,2,10)
+        ZMK_MOCK_RELEASE(2,2,10) ZMK_MOCK_RELEASE(2,1,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(2,5,10) ZMK_MOCK_PRESS(2,6,10)
+        ZMK_MOCK_RELEASE(2,6,10) ZMK_MOCK_RELEASE(2,5,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(0,3,10) ZMK_MOCK_PRESS(0,4,10)
+        ZMK_MOCK_RELEASE(0,4,10) ZMK_MOCK_RELEASE(0,3,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(1,0,10) ZMK_MOCK_PRESS(1,1,10)
+        ZMK_MOCK_RELEASE(1,1,10) ZMK_MOCK_RELEASE(1,0,10) ZMK_MOCK_RELEASE(5,6,300)
         ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(1,6,10) ZMK_MOCK_PRESS(2,0,10)
         ZMK_MOCK_RELEASE(2,0,10) ZMK_MOCK_RELEASE(1,6,10) ZMK_MOCK_RELEASE(5,6,300)
-        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(4,5,10) ZMK_MOCK_PRESS(4,6,10)
-        ZMK_MOCK_RELEASE(4,6,10) ZMK_MOCK_RELEASE(4,5,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(3,0,10) ZMK_MOCK_PRESS(3,1,10)
+        ZMK_MOCK_RELEASE(3,1,10) ZMK_MOCK_RELEASE(3,0,10) ZMK_MOCK_RELEASE(5,6,300)
         ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(3,4,10) ZMK_MOCK_PRESS(3,5,10)
         ZMK_MOCK_RELEASE(3,5,10) ZMK_MOCK_RELEASE(3,4,10) ZMK_MOCK_RELEASE(5,6,300)
         ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(4,5,10) ZMK_MOCK_PRESS(4,6,10)
         ZMK_MOCK_RELEASE(4,6,10) ZMK_MOCK_RELEASE(4,5,10) ZMK_MOCK_RELEASE(5,6,300)
-        // A 22ms E-then-R roll, as in typing "over", must stay letters.
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(2,0,10) ZMK_MOCK_PRESS(2,1,10)
+        ZMK_MOCK_RELEASE(2,1,10) ZMK_MOCK_RELEASE(2,0,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(2,6,10) ZMK_MOCK_PRESS(3,0,10)
+        ZMK_MOCK_RELEASE(3,0,10) ZMK_MOCK_RELEASE(2,6,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(0,2,10) ZMK_MOCK_PRESS(0,3,10)
+        ZMK_MOCK_RELEASE(0,3,10) ZMK_MOCK_RELEASE(0,2,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(1,1,10) ZMK_MOCK_PRESS(1,2,10)
+        ZMK_MOCK_RELEASE(1,2,10) ZMK_MOCK_RELEASE(1,1,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(3,5,10) ZMK_MOCK_PRESS(3,6,10)
+        ZMK_MOCK_RELEASE(3,6,10) ZMK_MOCK_RELEASE(3,5,10) ZMK_MOCK_RELEASE(5,6,300)
+        ZMK_MOCK_PRESS(5,6,40) ZMK_MOCK_PRESS(4,4,10) ZMK_MOCK_PRESS(4,5,10)
+        ZMK_MOCK_RELEASE(4,5,10) ZMK_MOCK_RELEASE(4,4,10) ZMK_MOCK_RELEASE(5,6,300)
+
+        // ...and without Shift, from layer 1.
+        ZMK_MOCK_PRESS(5,5,40)
+        ZMK_MOCK_PRESS(3,6,10) ZMK_MOCK_PRESS(4,0,10)
+        ZMK_MOCK_RELEASE(4,0,10) ZMK_MOCK_RELEASE(3,6,40)
+        ZMK_MOCK_PRESS(4,3,10) ZMK_MOCK_PRESS(4,4,10)
+        ZMK_MOCK_RELEASE(4,4,10) ZMK_MOCK_RELEASE(4,3,40)
+        ZMK_MOCK_PRESS(2,1,10) ZMK_MOCK_PRESS(2,2,10)
+        ZMK_MOCK_RELEASE(2,2,10) ZMK_MOCK_RELEASE(2,1,40)
+        ZMK_MOCK_PRESS(2,5,10) ZMK_MOCK_PRESS(2,6,10)
+        ZMK_MOCK_RELEASE(2,6,10) ZMK_MOCK_RELEASE(2,5,40)
+        ZMK_MOCK_PRESS(0,3,10) ZMK_MOCK_PRESS(0,4,10)
+        ZMK_MOCK_RELEASE(0,4,10) ZMK_MOCK_RELEASE(0,3,40)
+        ZMK_MOCK_PRESS(1,0,10) ZMK_MOCK_PRESS(1,1,10)
+        ZMK_MOCK_RELEASE(1,1,10) ZMK_MOCK_RELEASE(1,0,40)
+        ZMK_MOCK_PRESS(1,6,10) ZMK_MOCK_PRESS(2,0,10)
+        ZMK_MOCK_RELEASE(2,0,10) ZMK_MOCK_RELEASE(1,6,40)
+        ZMK_MOCK_PRESS(3,0,10) ZMK_MOCK_PRESS(3,1,10)
+        ZMK_MOCK_RELEASE(3,1,10) ZMK_MOCK_RELEASE(3,0,40)
+        ZMK_MOCK_PRESS(3,4,10) ZMK_MOCK_PRESS(3,5,10)
+        ZMK_MOCK_RELEASE(3,5,10) ZMK_MOCK_RELEASE(3,4,40)
+        ZMK_MOCK_PRESS(4,5,10) ZMK_MOCK_PRESS(4,6,10)
+        ZMK_MOCK_RELEASE(4,6,10) ZMK_MOCK_RELEASE(4,5,40)
+        ZMK_MOCK_PRESS(2,0,10) ZMK_MOCK_PRESS(2,1,10)
+        ZMK_MOCK_RELEASE(2,1,10) ZMK_MOCK_RELEASE(2,0,40)
+        ZMK_MOCK_PRESS(2,6,10) ZMK_MOCK_PRESS(3,0,10)
+        ZMK_MOCK_RELEASE(3,0,10) ZMK_MOCK_RELEASE(2,6,40)
+        ZMK_MOCK_PRESS(0,2,10) ZMK_MOCK_PRESS(0,3,10)
+        ZMK_MOCK_RELEASE(0,3,10) ZMK_MOCK_RELEASE(0,2,40)
+        ZMK_MOCK_PRESS(1,1,10) ZMK_MOCK_PRESS(1,2,10)
+        ZMK_MOCK_RELEASE(1,2,10) ZMK_MOCK_RELEASE(1,1,40)
+        ZMK_MOCK_PRESS(3,5,10) ZMK_MOCK_PRESS(3,6,10)
+        ZMK_MOCK_RELEASE(3,6,10) ZMK_MOCK_RELEASE(3,5,40)
+        ZMK_MOCK_PRESS(4,4,10) ZMK_MOCK_PRESS(4,5,10)
+        ZMK_MOCK_RELEASE(4,5,10) ZMK_MOCK_RELEASE(4,4,40)
+        ZMK_MOCK_RELEASE(5,5,300)
+
+        // 22ms rolls, as in typing "over", "we" and "tion", must stay letters.
         ZMK_MOCK_PRESS(0,3,22) ZMK_MOCK_PRESS(0,4,10)
         ZMK_MOCK_RELEASE(0,3,10) ZMK_MOCK_RELEASE(0,4,300)
+        ZMK_MOCK_PRESS(0,2,22) ZMK_MOCK_PRESS(0,3,10)
+        ZMK_MOCK_RELEASE(0,2,10) ZMK_MOCK_RELEASE(0,3,300)
+        ZMK_MOCK_PRESS(1,1,22) ZMK_MOCK_PRESS(1,2,10)
+        ZMK_MOCK_RELEASE(1,1,10) ZMK_MOCK_RELEASE(1,2,300)
     >;
 };

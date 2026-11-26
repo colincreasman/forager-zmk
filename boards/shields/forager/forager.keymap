@@ -128,6 +128,42 @@
             bindings = <&kp PLUS>, <&kp PLUS>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+        grave_fixed: grave_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE>, <&kp GRAVE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        tilde_fixed: tilde_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp TILDE>, <&kp TILDE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        dqt_fixed: dqt_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DQT>, <&kp DQT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        sqt_fixed: sqt_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp SQT>, <&kp SQT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        colon_fixed: colon_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COLON>, <&kp COLON>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        semi_fixed: semi_fixed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp SEMI>, <&kp SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
 
         // Homerow mods.
         //
@@ -274,23 +310,53 @@
         };
         combo_minus {
             timeout-ms = <21>;
-            key-positions = <20 21>;  // Z+X
+            key-positions = <21 22>;  // X+C
             bindings = <&minus_fixed>;
         };
         combo_equal {
             timeout-ms = <21>;
-            key-positions = <28 29>;  // .+/
+            key-positions = <27 28>;  // COMMA+.
             bindings = <&equal_fixed>;
         };
         combo_underscore {
             timeout-ms = <21>;
-            key-positions = <10 11>;  // A+S
+            key-positions = <1 2>;  // W+E
             bindings = <&under_fixed>;
         };
         combo_plus {
             timeout-ms = <21>;
-            key-positions = <18 19>;  // L+backslash
+            key-positions = <7 8>;  // I+O
             bindings = <&plus_fixed>;
+        };
+        combo_grave {
+            timeout-ms = <21>;
+            key-positions = <10 11>;  // A+S
+            bindings = <&grave_fixed>;
+        };
+        combo_tilde {
+            timeout-ms = <21>;
+            key-positions = <18 19>;  // L+backslash
+            bindings = <&tilde_fixed>;
+        };
+        combo_double_quote {
+            timeout-ms = <21>;
+            key-positions = <20 21>;  // Z+X
+            bindings = <&dqt_fixed>;
+        };
+        combo_single_quote {
+            timeout-ms = <21>;
+            key-positions = <28 29>;  // ./
+            bindings = <&sqt_fixed>;
+        };
+        combo_colon {
+            timeout-ms = <21>;
+            key-positions = <11 12>;  // S+D
+            bindings = <&colon_fixed>;
+        };
+        combo_semicolon {
+            timeout-ms = <21>;
+            key-positions = <17 18>;  // K+L
+            bindings = <&semi_fixed>;
         };
         // Enter/L1 and Backspace are also the outer thumbs, so one combo
         // does both: tap them together once for Caps Word, or hold both
